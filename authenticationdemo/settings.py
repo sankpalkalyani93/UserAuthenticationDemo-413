@@ -80,7 +80,7 @@ DATABASES = {
         'NAME': 'authenticationdemo',
         "HOST": "localhost",
         "USER": "root",
-        "PASSWORD": "",
+        "PASSWORD": "kalyani123*",
         "OPTIONS": {
             'sql_mode': 'traditional',
         }

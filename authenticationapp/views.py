@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm, CustomPasswordChangeForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def register_view(request):
@@ -36,3 +37,14 @@ def logout_view(request):
     if request.method == 'POST':
         logout(request)
         return redirect('login')
+    
+@login_required
+def password_change_view(request):
+    if request.method == 'POST':
+        form = CustomPasswordChangeForm(user=request.user, data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    else:
+        form = CustomPasswordChangeForm(user=request.user)
+    return render(request, 'authenticationapp/password_change.html', {'form': form})
